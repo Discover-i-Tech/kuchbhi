@@ -1,0 +1,407 @@
+<style id="style">
+    @import url($font_url);
+
+    :root {
+        --primary-color: $primary_color;
+        --secondary-color: $secondary_color;
+        --line-height: 1.6;
+    }
+
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: $font_name, Helvetica, sans-serif;
+        font-size: "$font_size";
+        zoom: 80%;
+    }
+
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    @page {
+        margin: 0 !important;
+        size: $page_size $page_layout;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    #spacer-table > * > tr > td {
+        padding: 0;
+    }
+
+    #spacer-table{
+        width: 100%;
+    }
+
+    #header {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 20px;
+        background-color: #2d2c2a;
+        color: white;
+        line-height: var(--line-height);
+        position: fixed;
+        top: 0;
+    }
+
+
+    #header, #header-spacer {
+        height: 160px;
+        padding: 3rem;
+        margin-bottom: 1rem;
+    }
+    .company-logo {
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    #company-details,
+    #company-address {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #company-details,
+    #company-address,
+    .logo-container {
+        max-height: 160px;
+    }
+
+    #client-details {
+        margin: 2rem;
+        display: flex;
+        flex-direction: column;
+        line-height: var(--line-height);
+    }
+
+    #client-details > :first-child {
+        font-weight: bold;
+    }
+
+    .client-entity-wrapper {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        padding-left: 1rem;
+    }
+
+    .entity-details-wrapper {
+        background-color: var(--primary-color);
+        padding: 1rem;
+    }
+
+    #entity-details {
+        width: 100%;
+        text-align: left;
+        color: white !important;
+    }
+
+    #entity-details > tr,
+    #entity-details th {
+        font-weight: normal;
+        padding-bottom: 0.5rem;
+    }
+
+    [data-ref="table"] {
+        min-width: 100%;
+        table-layout: fixed;
+        overflow-wrap: break-word;
+        margin-top: 3rem;
+        margin-bottom: 0px;
+    }
+
+    [data-ref="table"]:last-child{
+        margin-bottom:0;
+    }
+
+    .task-time-details {
+        display: block;
+        margin-top: 5px;
+        color: grey;
+    }
+
+    [data-ref="table"] > thead {
+        text-align: left;
+    }
+
+    [data-ref="table"] > thead > tr > th {
+        padding: 1.5rem 3rem;
+        font-size: 1rem;
+    }
+
+    [data-ref="table"] > thead > tr > th:last-child {
+        text-align: right;
+    }
+
+    [data-ref="table"] > tbody > tr > td {
+        padding: 1.5rem 3rem;
+    }
+
+    [data-ref="table"] > tbody > tr > td:last-child {
+        text-align: right;
+    }
+
+    [data-ref="table"] > tbody > tr > td:first-child {
+        font-weight: bold;
+    }
+
+    [data-ref="table"] > tbody > tr:nth-child(odd) {
+        background-color: #ebebeb;
+    }
+
+    #table-totals {
+        page-break-inside: avoid;
+    }
+
+    #table-totals {
+        margin-top: 0rem;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        padding-top: .5rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        gap: 80px;
+    }
+
+    #table-totals .totals-table-right-side > * {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #table-totals > .totals-table-right-side > * > :nth-child(1) {
+        text-align: $dir_text_align;
+        margin-top: .75rem;
+    }
+
+    #table-totals > .totals-table-right-side > * > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(.75rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(.75rem * var(--tw-space-y-reverse));
+    }
+
+    #table-totals > .totals-table-right-side > * > :nth-child(2) {
+        text-align: right;
+    }
+
+    #table-totals
+    > *
+    [data-element='product-table-balance-due-label'],
+    #table-totals
+    > *
+    [data-element='product-table-balance-due'] {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+
+    #table-totals
+    > *
+    [data-element='product-table-balance-due'] {
+        color: var(--primary-color);
+    }
+
+    #table-totals > * > :last-child {
+        text-align: right;
+        padding-right: 1.5rem;
+    }
+
+    .entity-label {
+        text-transform: uppercase;
+        color: var(--primary-color);
+        padding-left: 2rem;
+        font-size: 1.5rem;
+    }
+
+    #footer {
+        margin-top: 1rem;
+        background-color: #2d2c2a;
+        min-width: 100%;
+        position: fixed;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+        color: white;
+    }
+
+    #footer, #footer-spacer {
+        height: 160px;
+        padding: 1rem 3rem;
+        margin-top: 1rem;
+    }
+
+    [data-ref="total_table-footer"] {
+        padding-top: 0.5rem
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table[data-ref="table"] th,
+    table[data-ref="table"] td {
+        padding: .2rem .4rem;
+        text-align: left;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    /** Markdown-specific styles. **/
+    #product-table h3,
+    #task-table h3,
+    #delivery-note-table h3 {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+
+    [data-ref="product_table-product.description-th"] {
+        width: 23%;
+    }
+
+    [data-ref="statement-totals"] {
+        margin-top: 1rem;
+        text-align: right;
+        margin-right: .75rem;
+    }
+
+    [data-ref*=".line_total-td"] {
+        white-space: nowrap;
+    }
+
+    #statement-invoice-table-totals > p {
+        margin-right: 2rem;
+        margin-top: 1rem;
+    }
+
+
+    [data-element='product_table-product.description-td'], td {
+        min-width:100%;
+        max-width: 300px;
+        overflow-wrap: break-word; 
+    }
+
+    /** Useful snippets, uncomment to enable. **/
+
+    /** Hide company logo **/
+    /* .company-logo { display: none } */
+
+    /* Hide company details */
+    /* #company-details > * { display: none } */
+
+    /* Hide company address */
+    /* #company-address > * { display: none } */
+
+    /* Hide public notes */
+    /* [data-ref="total_table-public_notes"] { display: none } */
+
+    /* Hide terms label */
+    /* [data-ref="total_table-terms-label"] { display: none } */
+
+    /* Hide totals table */
+    /* #table-totals { display: none } */
+
+    /* Hide totals table left side */
+    /* #table-totals div:first-child > * { display: none !important } */
+
+    /* Hide totals table right side */
+    /* .totals-table-right-side { display: none } */
+
+    /** For more info, please check our docs: https://invoiceninja.github.io **/
+    /** To find out selectors on your own: https://invoiceninja.github.io/docs/custom-fields/#snippets **/
+</style>
+
+<div id="header">
+    <div class="logo-container">
+        <img class="company-logo" src="$company.logo" alt="$company.name logo"/>
+    </div>
+    <div id="company-details"></div>
+    <div id="company-address"></div>
+</div>
+<div id="body">
+    <table id="spacer-table" cellspacing="0" >
+        <thead>
+        <tr>
+            <td>
+                <div id="header-spacer"></div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="client-entity-wrapper">
+                    <div class="client-wrapper-left-side">
+                        <h4 class="entity-label">$entity_label</h4>
+                        <div id="client-details" cellspacing="0"></div>
+                        <div id="vendor-details" cellspacing="0"></div>
+                    </div>
+
+                    <div class="entity-details-wrapper-right-side">
+                        <div class="entity-details-wrapper">
+                            <table id="entity-details" dir="$dir"></table>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="product-table" cellspacing="0" data-ref="table"></table>
+
+                <table id="task-table" cellspacing="0" data-ref="table"></table>
+
+                <table id="delivery-note-table" cellspacing="0" data-ref="table"></table>
+
+                <table id="statement-invoice-table" cellspacing="0" data-ref="table"></table>
+                <div id="statement-invoice-table-totals" data-ref="statement-totals"></div>
+
+                <table id="statement-payment-table" cellspacing="0" data-ref="table"></table>
+                <div id="statement-payment-table-totals" data-ref="statement-totals"></div>
+
+                <table id="statement-aging-table" cellspacing="0" data-ref="table"></table>
+                <div id="statement-aging-table-totals" data-ref="statement-totals"></div>
+                <div id="table-totals" cellspacing="0"></div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>
+                <div id="footer-spacer"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+$entity_images
+
+<div id="footer">
+    <div style="width: 100%;">
+        <p data-ref="total_table-footer">$entity_footer</p>
+
+        <script>
+            // Clear up space a bit, if [product-table, tasks-table, delivery-note-table] isn't present.
+            document.addEventListener('DOMContentLoaded', () => {
+                let tables = [
+                    'product-table', 'task-table', 'delivery-note-table',
+                    'statement-invoice-table', 'statement-payment-table', 'statement-aging-table-totals',
+                    'statement-invoice-table-totals', 'statement-payment-table-totals', 'statement-aging-table',
+                    'vendor-details', 'client-details'
+                ];
+
+                tables.forEach((tableIdentifier) => {
+                    console.log(document.getElementById(tableIdentifier));
+
+                    document.getElementById(tableIdentifier)?.childElementCount === 0
+                        ? document.getElementById(tableIdentifier).style.setProperty('display', 'none', 'important')
+                        : '';
+                });
+            });
+        </script>
+    </div>
+    <div> <!-- #2 column --> </div>
+    <div> <!-- #3 column --> </div>
+</div>

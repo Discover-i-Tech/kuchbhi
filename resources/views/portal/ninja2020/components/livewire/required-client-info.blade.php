@@ -1,0 +1,68 @@
+<div class="container mx-auto grid grid-cols-12 mb-4" data-ref="required-fields-container">
+    <div class="col-span-12 lg:col-span-6 lg:col-start-4 overflow-hidden bg-white shadow rounded-lg">
+        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">
+                {{ ctrans('texts.required_payment_information') }}
+            </h3>
+
+            <p class="max-w-2xl mt-1 text-sm leading-5 text-gray-500">
+                {{ ctrans('texts.required_payment_information_more') }}
+            </p>
+        </div>
+
+        <form id="required-client-info-form" wire:submit.prevent="handleSubmit(Object.fromEntries(new FormData(document.getElementById('required-client-info-form'))))">
+            @foreach($fields as $field)
+                @if(!array_key_exists('filled', $field))
+                    @component('portal.ninja2020.components.general.card-element', ['title' => $field['label']])
+                        @if($field['name'] == 'client_country_id' || $field['name'] == 'client_shipping_country_id')
+                            <select id="client_country" class="input w-full form-select bg-white" name="{{ $field['name'] }}" wire:model.defer="{{ str_replace(["client_","_line_","contact_"], ["client.","","contact."], $field['name']) }}">
+                                <option value="none"></option>
+
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->id }}">
+                                        {{ $country->iso_3166_2 }} ({{ $country->name }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        @else
+                            <input class="input w-full" type="{{ $field['type'] ?? 'text' }}" name="{{ $field['name'] }}" wire:model.defer="{{ str_replace(["client_","_line_","contact_"], ["client.","","contact."], $field['name']) }}">
+                        @endif
+
+                        @if(session()->has('validation_errors') && array_key_exists($field['name'], session('validation_errors')))
+                            <p class="mt-2 text-gray-900 border-red-300 px-2 py-1 bg-gray-100">{{ session('validation_errors')[$field['name']][0] }}</p>
+                        @endif
+                    @endcomponent
+                @endif
+            @endforeach
+
+            @if($this->showCopyBillingCheckbox())
+                @component('portal.ninja2020.components.general.card-element-single')
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-100 px-2 py-1 text-sm rounded" wire:click="handleCopyBilling">
+                            {{ ctrans('texts.copy_billing') }}
+                        </button>
+                    </div>
+                @endcomponent
+            @endif
+
+            @component('portal.ninja2020.components.general.card-element-single')
+                <div class="flex flex-col items-end">
+                    <button class="button button-primary bg-primary">
+                        {{ trans('texts.continue') }}
+                    </button>
+                    <small class="mt-1 text-gray-800">{{ ctrans('texts.required_client_info_save_label') }}</small>
+                </div>
+            @endcomponent
+        </form>
+    </div>
+
+    @if(!$show_form)
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelector('div[data-ref="required-fields-container"]').classList.add('hidden');
+                document.querySelector('div[data-ref="gateway-container"]').classList.remove('opacity-25');
+                document.querySelector('div[data-ref="gateway-container"]').classList.remove('pointer-events-none');
+            });
+        </script>
+    @endif
+</div>
